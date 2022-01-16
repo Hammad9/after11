@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,TextInput ,Button,Alert, ToastAndroid} from 'react-native';
+import { StyleSheet, Text, View,TextInput ,Button,Alert, ToastAndroid, Modal} from 'react-native';
 
 
 
@@ -10,6 +10,9 @@ export default function App() {
 
   // Intial we set submiteed value false
   const [submitted, setSubmitted] = useState(false)
+
+  // For Set Warning in Modal
+  const [showWarning, setShowWarning] = useState(false)
   // Button function on press handler
   const onPressHandler=()=>{
     // 
@@ -17,20 +20,17 @@ export default function App() {
       setSubmitted(!submitted);
     }
     else{
-      /*
-        Alert.alert("Warnning","String Must be Gratter than 3",[
-          {text:'Dont Show',onPress:() =>console.warn('Do not Button Pressed')},
-          {text:'Cancel',onPress:() =>console.warn('Cancel Button Pressed')},
-          {text:'OK',onPress:() =>console.warn('Ok Button Pressed')},
-        ],{cancelable:true,onDismiss:()=>console.warn('Alert Dissmissed')})
-        // if Cancel Able Value true than when we click on screen it back the alert
-        // On Dismiss show when we back its show alert is back 
-        */
-       ToastAndroid.show('The Name Must Be Longer Then 3 Character',ToastAndroid.SHORT)
+        setShowWarning(true)
       }
   }
   return (
     <View style={styles.body}>
+      <Modal
+        visible={showWarning}  //Agar false then not show
+        onRequestClose={()=>setShowWarning(false)} 
+      >
+        <Text>There Name Must Be Longer then 3</Text>
+      </Modal>
       <Text style={styles.txt}>Please Write Your Name:</Text>
       <TextInput 
         // multiline    for Multiline in a input field
