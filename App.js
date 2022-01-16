@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,TextInput ,Button} from 'react-native';
+import { StyleSheet, Text, View,TextInput ,Button,Alert, ToastAndroid} from 'react-native';
 
 
 
@@ -12,7 +12,22 @@ export default function App() {
   const [submitted, setSubmitted] = useState(false)
   // Button function on press handler
   const onPressHandler=()=>{
+    // 
+    if(name.length > 3){
       setSubmitted(!submitted);
+    }
+    else{
+      /*
+        Alert.alert("Warnning","String Must be Gratter than 3",[
+          {text:'Dont Show',onPress:() =>console.warn('Do not Button Pressed')},
+          {text:'Cancel',onPress:() =>console.warn('Cancel Button Pressed')},
+          {text:'OK',onPress:() =>console.warn('Ok Button Pressed')},
+        ],{cancelable:true,onDismiss:()=>console.warn('Alert Dissmissed')})
+        // if Cancel Able Value true than when we click on screen it back the alert
+        // On Dismiss show when we back its show alert is back 
+        */
+       ToastAndroid.show('The Name Must Be Longer Then 3 Character',ToastAndroid.SHORT)
+      }
   }
   return (
     <View style={styles.body}>
@@ -33,6 +48,8 @@ export default function App() {
         
         title={submitted?'Clear':'Submit' }
         onPress={onPressHandler}
+       
+        
       />
     </View>
   );
